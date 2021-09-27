@@ -2,21 +2,24 @@ import React, { useState } from "react";
 import SingleQuestion from "./Questions";
 import info from "./data";
 
-function App() {
-  const [questions, setQuestions] = useState(info);
-  setQuestions(questions);
+const App = () => {
+  const [questions, showQuestions] = useState(info);
+
+  React.useEffect(() => {
+    return () => {
+      showQuestions(questions);
+    };
+  }, []);
   return (
-    <main>
-      <div className="container">
-        <h3>Questions And Answers About Login</h3>
-        <section className="info">
-          {questions.map((question) => {
-            return <SingleQuestion key={question.id} {...question} />;
-          })}
-        </section>
-      </div>
-    </main>
+    <div className="container">
+      <h3>Questions And Answers About Login</h3>
+      <section className="info">
+        {questions.map((question) => {
+          return <SingleQuestion key={question.id} {...question} />;
+        })}
+      </section>
+    </div>
   );
-}
+};
 
 export default App;
